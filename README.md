@@ -35,17 +35,58 @@ erDiagram
 - **Backend**: Express.js, TypeScript, OpenAPI/Swagger
 - **DevOps**: Docker
 
-## 🎯 Key Demo Scenarios
+## 🛒 Featured: Shopping Cart Implementation
 
-1. **Vibe Coding**
-   - Implement a shopping cart from a design mockup
-   - Watch Copilot analyze, plan, and implement across multiple files
-   - Show real-time UI updates and state management
+This demo showcases a **complete shopping cart feature** built entirely with GitHub Copilot:
 
-2. **Automated Testing**
-   - Generate BDD feature files
-   - Create and execute Playwright tests
-   - Enhance unit test coverage with intelligent test generation
+### ✨ What's Included
+- **🛍️ Full Cart Functionality** - Add, remove, update quantities with real-time calculations
+- **📱 Responsive UI** - Cart icon with live badge showing item count
+- **💾 Persistent Storage** - Cart contents saved across browser sessions
+- **🧮 Smart Calculations** - Automatic subtotals, discounts (5%), shipping, and grand totals
+- **🎨 Modern Design** - Clean, intuitive interface with Tailwind CSS
+- **⚡ Real-time Updates** - Instant UI feedback without page refreshes
+
+### �️ Technical Implementation
+- **TypeScript/React** - Type-safe component architecture
+- **Context API** - Centralized state management with `CartContext`
+- **localStorage** - Browser-based persistence with `cartStorage` utilities
+- **Custom Hooks** - Reusable cart operations and state management
+- **BDD Testing** - Comprehensive feature files for automated testing
+
+### 📁 File Structure
+```
+frontend/src/
+├── components/
+│   ├── Cart.tsx                 # Main cart page component
+│   └── Navigation.tsx           # Cart icon with badge
+├── context/
+│   └── CartContext.tsx          # Cart state management
+├── types/
+│   └── cart.ts                  # TypeScript interfaces
+└── utils/
+    └── cartStorage.ts           # Storage utilities
+
+features/
+├── cart-management.feature      # CRUD operations testing
+├── cart-icon-badge.feature      # UI display testing
+├── cart-persistence.feature     # Storage testing
+└── cart-calculations.feature    # Math validation testing
+```
+
+## �🎯 Key Demo Scenarios
+
+1. **Vibe Coding with Cart Implementation** ⭐
+   - Implement shopping cart from design mockup using Copilot Agent Mode
+   - Watch Copilot analyze UI requirements and generate TypeScript components
+   - Demonstrate multi-file implementation with state management
+   - Show real-time UI updates and localStorage persistence
+
+2. **BDD Testing Generation** ⭐
+   - Generate comprehensive BDD feature files from natural language
+   - Create Playwright automation tests for cart functionality
+   - Execute end-to-end testing scenarios with live validation
+   - Showcase test-driven development with Copilot
 
 3. **Security and Best Practices**
    - Scan for vulnerabilities using GHAS
@@ -69,10 +110,25 @@ erDiagram
    ```bash
    npm run dev
    ```
+4. Explore the shopping cart feature:
+   - Navigate to [Products page](http://localhost:5137/products) to add items
+   - View your cart at [Cart page](http://localhost:5137/cart)
+   - Notice the cart icon badge in the navigation
 
 Or use the VS Code tasks:
 - `Cmd/Ctrl + Shift + P` -> `Run Task` -> `Build All`
 - Use the Debug panel to run `Start API & Frontend`
+
+### 🧪 Testing the Cart Feature
+Run the BDD tests with Playwright:
+```bash
+# The cart feature includes comprehensive BDD test scenarios
+# Test files are located in the /features directory
+# - cart-management.feature
+# - cart-icon-badge.feature  
+# - cart-persistence.feature
+# - cart-calculations.feature
+```
 
 ## 🛠️ MCP Server Setup (Optional)
 
