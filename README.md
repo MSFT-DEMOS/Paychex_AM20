@@ -140,6 +140,16 @@ To showcase extended capabilities:
    - `MCP: List servers` -> `github` -> `Start server`
 3. Configure with a GitHub PAT (required for GitHub MCP server)
 
+### 📋 MCP Server Discovery
+Use the comprehensive [MCP Server Discovery Prompt](./.github/prompts/mcp.prompt.md) to identify the most valuable MCP servers for your supply chain management workflow. This prompt analyzes your project structure and provides prioritized recommendations for:
+- Developer tools (GitHub, Playwright, testing automation)
+- Data & analytics (DuckDB for supply chain insights)
+- Productivity tools (Linear, Notion, project management)
+- Cloud & infrastructure (Azure, DevOps integration)
+- Business services (Stripe payments, workflow automation)
+
+The prompt always fetches the latest available MCP servers from VS Code documentation to ensure up-to-date recommendations.
+
 ## 📚 Documentation
 
 - [Detailed Architecture](./docs/architecture.md)
