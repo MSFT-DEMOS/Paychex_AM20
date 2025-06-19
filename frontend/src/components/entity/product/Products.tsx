@@ -2,6 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import { useQuery } from 'react-query';
 import { api } from '../../../api/config';
+import { useCart } from '../../../context/CartContext';
 
 interface Product {
   productId: number;
@@ -22,7 +23,9 @@ const fetchProducts = async (): Promise<Product[]> => {
 export default function Products() {
   const [quantities, setQuantities] = useState<Record<number, number>>({});
   const [searchTerm, setSearchTerm] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
   const { data: products, isLoading, error } = useQuery('products', fetchProducts);
+  const { addToCart } = useCart();
 
   const filteredProducts = products?.filter(product => 
     product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -35,16 +38,31 @@ export default function Products() {
       [productId]: Math.max(0, (prev[productId] || 0) + change)
     }));
   };
-
-  const handleAddToCart = (productId: number) => {
-    const quantity = quantities[productId] || 0;
+  const handleAddToCart = (product: Product) => {
+    const quantity = quantities[product.productId] || 0;
     if (quantity > 0) {
-      // TODO: Implement cart functionality
-      alert(`Added ${quantity} items to cart`);
-      setQuantities(prev => ({
-        ...prev,
-        [productId]: 0
-      }));
+      try {
+        addToCart({
+          productId: product.productId,
+          name: product.name,
+          price: product.price,
+          imgName: product.imgName,
+          unit: product.unit
+        }, quantity);
+        
+        // Show success message
+        setSuccessMessage(`Added ${quantity} ${product.name}(s) to cart!`);
+        setTimeout(() => setSuccessMessage(''), 3000);
+        
+        // Reset quantity
+        setQuantities(prev => ({
+          ...prev,
+          [product.productId]: 0
+        }));
+      } catch (error) {
+        console.error('Failed to add product to cart:', error);
+        alert('Failed to add product to cart. Please try again.');
+      }
     }
   };
 
@@ -75,8 +93,7 @@ export default function Products() {
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col space-y-6">
           <h1 className="text-3xl font-bold text-light">Products</h1>
-          
-          <div className="relative">
+            <div className="relative">
             <input
               type="text"
               placeholder="Search products..."
@@ -97,6 +114,13 @@ export default function Products() {
               <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
             </svg>
           </div>
+
+          {/* Success Message */}
+          {successMessage && (
+            <div className="bg-green-600 text-white px-4 py-3 rounded-lg">
+              {successMessage}
+            </div>
+          )}
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {filteredProducts?.map((product, index) => (
@@ -147,9 +171,8 @@ export default function Products() {
                         >
                           <span aria-hidden="true">+</span>
                         </button>
-                      </div>
-                      <button 
-                        onClick={() => handleAddToCart(product.productId)}
+                      </div>                      <button 
+                        onClick={() => handleAddToCart(product)}
                         className={`px-4 py-2 rounded-lg transition-colors ${
                           quantities[product.productId] ? 'bg-primary hover:bg-accent text-white' : 'bg-gray-700 text-gray-400 cursor-not-allowed'
                         }`}

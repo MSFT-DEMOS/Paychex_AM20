@@ -50,6 +50,7 @@ Based on the analysis, outline the high-level steps required to implement the ch
 3. Testing approaches
 4. Integration considerations
 5. Any necessary migration or deployment concerns
+6. Create an <feature>-implmentation_plan.md file in the .github/plans directory with the implemeation plan.  Make it a checklist with phases.
 
 **Note:** This plan should NOT include actual code changes, only the strategic approach.
 

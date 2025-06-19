@@ -1,10 +1,14 @@
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useCart } from '../context/CartContext';
 import { useState } from 'react';
 
 export default function Navigation() {
   const { isLoggedIn, isAdmin, logout } = useAuth();
+  const { getCartItemCount } = useCart();
   const [adminMenuOpen, setAdminMenuOpen] = useState(false);
+  
+  const cartItemCount = getCartItemCount();
 
   return (
     <nav className="bg-dark/95 backdrop-blur-sm fixed w-full z-50">
@@ -61,8 +65,27 @@ export default function Navigation() {
                 </div>
               )}
             </div>
-          </div>
-          <div className="flex items-center space-x-4">
+          </div>          <div className="flex items-center space-x-4">
+            {/* Cart Icon with Badge */}
+            <Link to="/cart" className="relative text-light hover:text-primary transition-colors">
+              <svg 
+                className="h-6 w-6" 
+                fill="none" 
+                strokeLinecap="round" 
+                strokeLinejoin="round" 
+                strokeWidth="2" 
+                viewBox="0 0 24 24" 
+                stroke="currentColor"
+              >
+                <path d="M3 3h2l.4 2M7 13h10l4-8H5.4m1.6 8L6 21h12M9 19a1 1 0 100 2 1 1 0 000-2zm7 0a1 1 0 100 2 1 1 0 000-2z" />
+              </svg>
+              {cartItemCount > 0 && (
+                <span className="absolute -top-2 -right-2 bg-primary text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-medium">
+                  {cartItemCount > 99 ? '99+' : cartItemCount}
+                </span>
+              )}
+            </Link>
+            
             {isLoggedIn ? (
               <>
                 <span className="text-light text-sm">
